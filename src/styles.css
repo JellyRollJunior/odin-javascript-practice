@@ -4,8 +4,20 @@
 }
 
 body,
-.dropdown-btn {
+.dropdown-menu-btn {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* TODO: make dropdown menu position absolute from button*/
+.dropdown-menu {
+  display: none;
+  height: 200px;
+  width: 75px;
+  border: 2px solid black;
+}
+
+.dropdown-menu.visible {
+  display: block;
 }
