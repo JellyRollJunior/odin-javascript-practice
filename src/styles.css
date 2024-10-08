@@ -11,23 +11,31 @@ body,
 }
 
 .menu {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  align-items: stretch;
 
   width: 350px;
+  height: 40px;
+  padding: 0px 15px;
   border: 2px solid black;
+  border-radius: 4px;
+}
+
+.menu > .title {
+  align-self: center;
+  margin-left: 20px;
 }
 
 .dropdown-container {
   position: relative;
 }
 
-button {
+.dropdown-menu-btn {
   border: none;
+  height: 100%;
 }
 
-/* TODO: make dropdown menu position absolute from button*/
 .dropdown-menu {
   display: none;
   height: 200px;
