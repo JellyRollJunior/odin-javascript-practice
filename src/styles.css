@@ -10,12 +10,17 @@ body,
   align-items: center;
 }
 
+.dropdown-container {
+  position: relative;
+}
+
 /* TODO: make dropdown menu position absolute from button*/
 .dropdown-menu {
   display: none;
   height: 200px;
   width: 75px;
   border: 2px solid black;
+  position: absolute;
 }
 
 .dropdown-menu.visible {
