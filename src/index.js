@@ -1,13 +1,15 @@
 import './styles.css';
 
-console.log('hello world');
+const toggleVisibility = function(element) {
+  if (element.classList.contains('visible')) {
+    element.classList.remove('visible');
+  } else {
+    element.classList.add('visible');
+  }
+}
 
 const dropdownMenuButton = document.querySelector('.dropdown-menu-btn');
 dropdownMenuButton.addEventListener('click', () => {
   const dropdownMenu = document.querySelector('.dropdown-menu');
-  if (dropdownMenu.classList.contains('visible')) {
-    dropdownMenu.classList.remove('visible');
-  } else {
-    dropdownMenu.classList.add('visible');
-  }
+  toggleVisibility(dropdownMenu);
 });
