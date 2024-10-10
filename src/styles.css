@@ -61,8 +61,9 @@ body,
 }
 
 .carousel {
+  --left-right-button-width: 32px;
   display: grid;
-  grid-template-columns: 32px 1fr 32px;
+  grid-template-columns: var(--left-right-button-width) 1fr var(--left-right-button-width);
   grid-template-rows: 250px 40px;
   width: var(--site-width);
   margin-top: 8px;
@@ -88,4 +89,8 @@ body,
   display: flex;
   height: 100%;
   background-color: paleturquoise;
+}
+
+.images > img {
+  width: 100%;
 }
