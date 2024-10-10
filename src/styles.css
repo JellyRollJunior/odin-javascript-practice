@@ -68,17 +68,23 @@ body,
   margin-top: 8px;
 }
 
+.carousel > * {
+  border: solid 1px black;
+}
+
 .left,
 .right {
   grid-row: 1 / span 2;
-  border: solid 1px black;
+}
+
+.frame {
+  grid-row: 1;
+  position: relative;
 }
 
 .images {
-  grid-row: 1;
-  border: solid 1px black;
-}
-
-.nav-btns {
-  border: solid 1px black;
+  position: absolute;
+  display: flex;
+  height: 100%;
+  background-color: paleturquoise;
 }
