@@ -80,6 +80,7 @@ body,
 .frame {
   grid-row: 1;
   position: relative;
+  overflow: hidden;
 }
 
 .images {
