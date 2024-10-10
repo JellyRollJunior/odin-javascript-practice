@@ -1,4 +1,6 @@
-* {
+*,
+*::before,
+*::after {
   background-color: white;
   box-sizing: border-box;
 }
@@ -62,9 +64,9 @@ body,
 }
 
 .carousel {
-  --left-right-button-width: 32px;
+  --image-width: 380px;
   display: grid;
-  grid-template-columns: var(--left-right-button-width) 1fr var(--left-right-button-width);
+  grid-template-columns: 1fr var(--image-width) 1fr;
   grid-template-rows: 250px 40px;
   width: var(--site-width);
   margin-top: 8px;
@@ -93,5 +95,5 @@ body,
 }
 
 .images > img {
-  width: 100%;
+  width: var(--image-width);
 }

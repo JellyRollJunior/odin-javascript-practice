@@ -55,5 +55,18 @@ const toggleVisibility = function (element) {
 })();
 
 (function carousel() {
-  
+  const left = document.querySelector('.left');
+  const right = document.querySelector('.right');
+  const images = document.querySelector('.images');
+  const numImages = images.children.length;
+  const imageLength = images.clientWidth / numImages;
+  let currentOffset = 0;
+
+  function next() {
+    currentOffset += imageLength;
+    if (currentOffset >= images.clientWidth) {
+      currentOffset = 0;
+    }
+    images.style.left = `-${currentOffset}px`;
+  }
 })();
