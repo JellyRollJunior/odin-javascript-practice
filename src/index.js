@@ -55,8 +55,6 @@ const toggleVisibility = function (element) {
 })();
 
 (function carousel() {
-  const left = document.querySelector('.left');
-  const right = document.querySelector('.right');
   const images = document.querySelector('.images');
   const numImages = images.children.length;
   const imageLength = images.clientWidth / numImages;
@@ -69,4 +67,19 @@ const toggleVisibility = function (element) {
     }
     images.style.left = `-${currentOffset}px`;
   }
+
+  const right = document.querySelector('.right');
+  right.addEventListener('click', () => next());
+
+  function previous() {
+    currentOffset -= imageLength;
+    // show last image if previous is clicked when showing first image
+    if (currentOffset < 0) {
+      currentOffset = imageLength * (numImages - 1);
+    }
+    images.style.left = `-${currentOffset}px`;
+  }
+
+  const left = document.querySelector('.left');
+  left.addEventListener('click', () => previous());
 })();
