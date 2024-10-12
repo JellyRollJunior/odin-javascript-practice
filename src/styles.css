@@ -79,6 +79,7 @@ body,
 .left,
 .right {
   grid-row: 1 / span 2;
+  padding: 0;
 }
 
 .frame {
