@@ -102,6 +102,7 @@ const toggleVisibility = function (element) {
   }
 
   function handleClickNavButton(target) {
+    target.classList.add('active');
     const index = target.dataset.index;
     currentOffset = imageLength * index;
     setImageOffset();
