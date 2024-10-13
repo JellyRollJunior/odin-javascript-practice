@@ -101,7 +101,15 @@ const toggleVisibility = function (element) {
     }
   }
 
+  function clearNavButtonsActiveStatus() {
+    const navButtons = document.querySelectorAll(`.nav-btns > *`);
+    navButtons.forEach((button) => {
+      button.classList.remove('active');
+    })
+  }
+
   function handleClickNavButton(target) {
+    clearNavButtonsActiveStatus();
     target.classList.add('active');
     const index = target.dataset.index;
     currentOffset = imageLength * index;
