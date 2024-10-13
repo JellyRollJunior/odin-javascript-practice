@@ -59,6 +59,7 @@ const toggleVisibility = function (element) {
   const numImages = images.children.length;
   const imageLength = images.clientWidth / numImages;
   let currentOffset = 0;
+  const navButtonHolder = document.querySelector('.nav-btns');
 
   function next() {
     currentOffset += imageLength;
@@ -82,4 +83,36 @@ const toggleVisibility = function (element) {
 
   const left = document.querySelector('.left');
   left.addEventListener('click', () => previous());
+
+  function createNavButton(index) {
+    const navButton = document.createElement('button');
+    navButton.dataset.index = index;
+    return navButton;
+  }
+
+  function createNavButtons() {
+    for (let i = 0; i < numImages; i++) {
+      const navButton = createNavButton(i);
+      navButtonHolder.appendChild(navButton);
+    }
+  }
+
+  function handleClickNavButton(target) {
+    const index = target.dataset.index;
+    currentOffset = imageLength * index;
+    images.style.left = `-${currentOffset}px`;
+  }
+
+  function bindNavButtons() {
+    const navButtons = document.querySelectorAll(`.nav-btns > *`);
+    navButtons.forEach((button) => {
+      button.addEventListener('click', (event) => {
+        const target = event.target;
+        handleClickNavButton(target);
+      })
+    })
+  }
+
+  createNavButtons();
+  bindNavButtons();
 })();

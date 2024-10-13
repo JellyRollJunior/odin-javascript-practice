@@ -98,3 +98,18 @@ body,
 .images > img {
   width: var(--image-width);
 }
+
+.nav-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btns > button {
+  width: 12px;
+  height: 12px;
+  border: 2px solid black;
+  border-radius: 50%;
+  padding: 0;
+}
