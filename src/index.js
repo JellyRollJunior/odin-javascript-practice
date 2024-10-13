@@ -128,4 +128,6 @@ const toggleVisibility = function (element) {
 
   createNavButtons();
   bindNavButtons();
+  // Make first nav button active
+  document.querySelector('.nav-btns > button:first-child').classList.add('active');
 })();
