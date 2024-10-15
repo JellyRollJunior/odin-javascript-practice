@@ -56,33 +56,29 @@ const toggleVisibility = function (element) {
 
 (function carousel() {
   const images = document.querySelector('.images');
+  const navButtonHolder = document.querySelector('.nav-btns');
   const numImages = images.children.length;
   const imageLength = images.clientWidth / numImages;
-  let currentOffset = 0;
-  const navButtonHolder = document.querySelector('.nav-btns');
+  let activeImageIndex = 0;
 
-  function setImageOffset() {
-    images.style.left = `-${currentOffset}px`;
+  function setCarouselImage(index) {
+    const imageIndex = index % numImages;
+    const imageOffset = imageLength * imageIndex;
+    images.style.left = `-${imageOffset}px`;
   }
 
   function next() {
-    currentOffset += imageLength;
-    if (currentOffset >= images.clientWidth) {
-      currentOffset = 0;
-    }
-    setImageOffset();
+    activeImageIndex = (activeImageIndex + 1) % numImages;
+    setCarouselImage(activeImageIndex);
   }
 
   const right = document.querySelector('.right');
   right.addEventListener('click', () => next());
 
   function previous() {
-    currentOffset -= imageLength;
-    // show last image if previous is clicked when showing first image
-    if (currentOffset < 0) {
-      currentOffset = imageLength * (numImages - 1);
-    }
-    setImageOffset();
+    // % is actually the remainder operator in javascript ... no modulo
+    activeImageIndex = (((activeImageIndex - 1) % numImages) + numImages) % numImages;
+    setCarouselImage(activeImageIndex);
   }
 
   const left = document.querySelector('.left');
@@ -112,8 +108,7 @@ const toggleVisibility = function (element) {
     clearNavButtonsActiveStatus();
     target.classList.add('active');
     const index = target.dataset.index;
-    currentOffset = imageLength * index;
-    setImageOffset();
+    setCarouselImage(index);
   }
 
   function bindNavButtons() {
