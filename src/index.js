@@ -137,5 +137,5 @@ const toggleVisibility = function (element) {
   createNavButtons();
   bindNavButtons();     
   updateActiveNavButton(0);
-  setInterval(next(), 5000);
+  setInterval(next, 5000);
 })();
