@@ -57,6 +57,9 @@ const toggleVisibility = function (element) {
 (function carousel() {
   const images = document.querySelector('.images');
   const navButtonHolder = document.querySelector('.nav-btns');
+  const right = document.querySelector('.right');
+  const left = document.querySelector('.left');
+
   const numImages = images.children.length;
   const imageLength = images.clientWidth / numImages;
   let activeImageIndex = 0;
@@ -66,23 +69,6 @@ const toggleVisibility = function (element) {
     const imageOffset = imageLength * imageIndex;
     images.style.left = `-${imageOffset}px`;
   }
-
-  function next() {
-    activeImageIndex = (activeImageIndex + 1) % numImages;
-    setCarouselImage(activeImageIndex);
-  }
-
-  const right = document.querySelector('.right');
-  right.addEventListener('click', () => next());
-
-  function previous() {
-    // % is actually the remainder operator in javascript ... no modulo
-    activeImageIndex = (((activeImageIndex - 1) % numImages) + numImages) % numImages;
-    setCarouselImage(activeImageIndex);
-  }
-
-  const left = document.querySelector('.left');
-  left.addEventListener('click', () => previous());
 
   function createNavButton(index) {
     const navButton = document.createElement('button');
@@ -97,18 +83,29 @@ const toggleVisibility = function (element) {
     }
   }
 
-  function clearNavButtonsActiveStatus() {
+  function clearActiveNavButton() {
     const navButtons = document.querySelectorAll(`.nav-btns > *`);
     navButtons.forEach((button) => {
       button.classList.remove('active');
-    })
+    });
+  }
+
+  function setActiveNavButton(index) {
+    const navButton = document.querySelector(
+      `.nav-btns > :nth-child(${index + 1})`
+    );
+    navButton.classList.add('active');
+  }
+
+  function updateActiveNavButton(index) {
+    clearActiveNavButton();
+    setActiveNavButton(index);
   }
 
   function handleClickNavButton(target) {
-    clearNavButtonsActiveStatus();
-    target.classList.add('active');
-    const index = target.dataset.index;
-    setCarouselImage(index);
+    activeImageIndex = Number.parseInt(target.dataset.index);
+    setCarouselImage(activeImageIndex);
+    updateActiveNavButton(activeImageIndex);
   }
 
   function bindNavButtons() {
@@ -117,12 +114,27 @@ const toggleVisibility = function (element) {
       button.addEventListener('click', (event) => {
         const target = event.target;
         handleClickNavButton(target);
-      })
-    })
+      });
+    });
   }
 
+  function next() {
+    activeImageIndex = (activeImageIndex + 1) % numImages;
+    setCarouselImage(activeImageIndex);
+    updateActiveNavButton(activeImageIndex);
+  }
+
+  function previous() {
+    // % is actually the remainder operator in javascript ... no modulo
+    activeImageIndex =
+      (((activeImageIndex - 1) % numImages) + numImages) % numImages;
+    setCarouselImage(activeImageIndex);
+    updateActiveNavButton(activeImageIndex)
+  }
+
+  right.addEventListener('click', () => next());
+  left.addEventListener('click', () => previous());
   createNavButtons();
-  bindNavButtons();
-  // Make first nav button active
-  document.querySelector('.nav-btns > button:first-child').classList.add('active');
+  bindNavButtons();     
+  updateActiveNavButton(0);
 })();
