@@ -39,16 +39,18 @@ const email = (function email() {
 })();
 
 const country = (function country() {
-    const country = document.querySelector('#country');
-    const countryCode = country.value;
-
-    const getCountryCode = () => countryCode;
+    
+    const getCountryCode = () => {
+        const country = document.querySelector('#country');
+        return country.value;
+    }
 
     return { getCountryCode };
 })();
 
 const zipcode = (function zipcode() {
     const zipcode = document.querySelector('#zipcode');
+    const zipcodeError = document.querySelector('#zipcode+div');
     const constraints = {
         tw: [
             '^[\\d]{3}((-)?[\\d]{2,3})?$',
@@ -72,6 +74,7 @@ const zipcode = (function zipcode() {
         ],
     };
 
+
     const isZipcodeValid = () => {
         const countryCode = country.getCountryCode();
         const zipcodeConstraint = new RegExp(constraints[countryCode][0], '');
@@ -79,8 +82,22 @@ const zipcode = (function zipcode() {
         return zipcodeConstraint.test(zipcodeValue);
     };
 
+    const validateZipcode = () => {
+        if (isZipcodeValid()) {
+            zipcodeError.textContent = '';
+            zipcodeError.className = 'error';
+        } else {
+            showZipcodeError();
+        }
+    }
+
+    const showZipcodeError = () => {
+        zipcodeError.className = 'error active';
+        zipcodeError.textContent = constraints[country.getCountryCode()][1];
+    }
+
     zipcode.addEventListener('input', () => {
-        isZipcodeValid();
+        validateZipcode();
     })
 
     return {isZipcodeValid}
