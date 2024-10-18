@@ -109,17 +109,33 @@ const password = (function password() {
     const passwordConstraint = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$', '');
 
     const isPasswordValid = () => {
-        // check passwords match
-        // check they follow constraint
         const passwordValue = password.value;
         const confirmValue = confirmPassword.value 
-        console.log(passwordConstraint.test(passwordValue));
-        console.log((passwordValue == confirmValue));
         return passwordConstraint.test(passwordValue) && (passwordValue == confirmValue);
     }
 
-    password.addEventListener('input', () => isPasswordValid());
-    confirmPassword.addEventListener('input', () => isPasswordValid());
+    const validatePassword = () => {
+        if (isPasswordValid()) {
+            passwordError.textContent = '';
+            passwordError.className = 'error';
+        } else {
+            showPasswordError();
+        }
+    }
+
+    const showPasswordError = () => {
+        const passwordValue = password.value;
+        const confirmValue = confirmPassword.value
+        if (!passwordConstraint.test(passwordValue)) {
+            passwordError.textContent = 'Passwords require at least eight characters, one uppercase letter, one lowercase letter, one number and one special character';
+        } else if (passwordValue != confirmValue) {
+            passwordError.textContent = 'Passwords must match';
+        }
+        passwordError.className = 'error active';
+    }
+
+    password.addEventListener('input', () => validatePassword());
+    confirmPassword.addEventListener('input', () => validatePassword());
 
     return { isPasswordValid };
 })();
