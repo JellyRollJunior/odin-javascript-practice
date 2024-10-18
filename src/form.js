@@ -1,15 +1,17 @@
 export { form };
 
-const form = (function form() {
-    const form = document.querySelector('form');
+const email = (function email() {
     const email = document.querySelector('#email');
     const emailError = document.querySelector('#email+.error');
-    
     const emailConstraint = new RegExp('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$', '');
 
-    const validateEmail = () => {
+    const isEmailValid = () => {
         const emailAddress = email.value;
-        if (emailConstraint.test(emailAddress)) {
+        return emailConstraint.test(emailAddress);
+    }
+
+    const validateEmail = () => {
+        if (isEmailValid()) {
             emailError.textContent = '';
             emailError.className = 'error';
         } else {
@@ -27,7 +29,20 @@ const form = (function form() {
     }
 
     email.addEventListener('input', () => validateEmail());
+
+    return { isEmailValid, };
+})();
+
+const form = (function form() {
+    const form = document.querySelector('form');
+    const output = document.querySelector('output');
+    
     form.addEventListener('submit', (event) => {
         event.preventDefault();
+        if (email.isEmailValid()) {
+            output.textContent = "YIPPEE - High five time!";
+        } else {
+            output.textContent = "Oops, check your fields again!";
+        }
     });
 })();
