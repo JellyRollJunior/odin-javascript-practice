@@ -1,4 +1,5 @@
 import './styles.css';
+import { form } from './form.js';
 
 const toggleVisibility = function (element) {
   if (element.classList.contains('visible')) {
