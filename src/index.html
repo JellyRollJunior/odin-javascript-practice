@@ -41,15 +41,18 @@
       <form class="border" novalidate>
         <legend>This is a real form!</legend>
         <label for="email">Email</label>
-        <input name='email' type="email" id="email" min="5" />
+        <div>
+          <input name="email" type="email" id="email" min="5" />
+          <div class="error" aria-live="polite"></div>
+        </div>
         <label for="country">Country</label>
         <select name="country" id="country"></select>
         <label for="zipcode">Zipcode</label>
-        <input name='zipcode' type="text" id="zipcode" />
+        <input name="zipcode" type="text" id="zipcode" />
         <label for="password">Password</label>
-        <input name='password' type="text" id="password"/>
+        <input name="password" type="text" id="password" />
         <label for="confirm-password">Confirm password</label>
-        <input type="text" id="confirm-password"/>
+        <input type="text" id="confirm-password" />
         <button>Submit</button>
       </form>
     </div>
