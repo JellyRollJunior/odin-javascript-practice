@@ -35,7 +35,7 @@ const email = (function email() {
 
     email.addEventListener('input', () => validateEmail());
 
-    return { isEmailValid };
+    return { isEmailValid, showEmailError };
 })();
 
 const country = (function country() {
@@ -96,11 +96,9 @@ const zipcode = (function zipcode() {
         zipcodeError.textContent = constraints[country.getCountryCode()][1];
     }
 
-    zipcode.addEventListener('input', () => {
-        validateZipcode();
-    })
+    zipcode.addEventListener('input', () => validateZipcode());
 
-    return {isZipcodeValid}
+    return { isZipcodeValid, showZipcodeError }
 })();
 
 const form = (function form() {
@@ -109,10 +107,12 @@ const form = (function form() {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        if (email.isEmailValid()) {
+        if (email.isEmailValid() && zipcode.isZipcodeValid()) {
             output.textContent = 'YIPPEE - High five time!';
         } else {
             output.textContent = 'Oops, check your fields again!';
+            email.showEmailError();
+            zipcode.showZipcodeError();
         }
     });
 })();
