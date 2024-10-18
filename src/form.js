@@ -38,6 +38,15 @@ const email = (function email() {
     return { isEmailValid };
 })();
 
+const country = (function country() {
+    const country = document.querySelector('#country');
+    const countryCode = country.value;
+
+    const getCountryCode = () => countryCode;
+
+    return { getCountryCode };
+})();
+
 const form = (function form() {
     const form = document.querySelector('form');
     const output = document.querySelector('output');
