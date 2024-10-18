@@ -149,6 +149,11 @@ form * {
   border-radius: 4px 4px 0 0;
 }
 
+output {
+  grid-column: span 2;
+  text-align: center; 
+}
+
 .error {  
   padding: 0;
   font-size: 80%;
