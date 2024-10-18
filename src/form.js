@@ -50,7 +50,7 @@ const country = (function country() {
 
 const zipcode = (function zipcode() {
     const zipcode = document.querySelector('#zipcode');
-    const zipcodeError = document.querySelector('#zipcode+div');
+    const zipcodeError = document.querySelector('#zipcode+.error');
     const constraints = {
         tw: [
             '^[\\d]{3}((-)?[\\d]{2,3})?$',
@@ -99,6 +99,29 @@ const zipcode = (function zipcode() {
     zipcode.addEventListener('input', () => validateZipcode());
 
     return { isZipcodeValid, showZipcodeError }
+})();
+
+const password = (function password() {
+    const password = document.querySelector('#password');
+    const confirmPassword = document.querySelector('#confirm-password');
+    const passwordError = document.querySelector('#password+.error');
+    // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+    const passwordConstraint = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$', '');
+
+    const isPasswordValid = () => {
+        // check passwords match
+        // check they follow constraint
+        const passwordValue = password.value;
+        const confirmValue = confirmPassword.value 
+        console.log(passwordConstraint.test(passwordValue));
+        console.log((passwordValue == confirmValue));
+        return passwordConstraint.test(passwordValue) && (passwordValue == confirmValue);
+    }
+
+    password.addEventListener('input', () => isPasswordValid());
+    confirmPassword.addEventListener('input', () => isPasswordValid());
+
+    return { isPasswordValid };
 })();
 
 const form = (function form() {

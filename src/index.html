@@ -55,13 +55,16 @@
         </select>
         <label for="zipcode">Zipcode</label>
         <div>
-          <input name="zipcode" type="text" id="zipcode" required/>
+          <input name="zipcode" type="text" id="zipcode" required />
           <div class="error" aria-live="polite"></div>
         </div>
         <label for="password">Password</label>
-        <input name="password" type="text" id="password" />
+        <div>
+          <input name="password" type="text" id="password" minlength="8" required />
+          <div class="error" aria-live="polite"></div>
+        </div>
         <label for="confirm-password">Confirm password</label>
-        <input type="text" id="confirm-password" />
+        <input type="text" id="confirm-password" minlength="8" required />
         <button>Submit</button>
         <output></output>
       </form>
