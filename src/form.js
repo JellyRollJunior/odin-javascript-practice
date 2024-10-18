@@ -71,6 +71,19 @@ const zipcode = (function zipcode() {
             'Dutch postal codes must have exactly 4 digits, followed by 2 letters except SA, SD and SS',
         ],
     };
+
+    const isZipcodeValid = () => {
+        const countryCode = country.getCountryCode();
+        const zipcodeConstraint = new RegExp(constraints[countryCode][0], '');
+        const zipcodeValue = zipcode.value;
+        return zipcodeConstraint.test(zipcodeValue);
+    };
+
+    zipcode.addEventListener('input', () => {
+        isZipcodeValid();
+    })
+
+    return {isZipcodeValid}
 })();
 
 const form = (function form() {
