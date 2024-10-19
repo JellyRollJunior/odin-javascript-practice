@@ -144,7 +144,7 @@ const password = (function password() {
     password.addEventListener('input', () => validatePassword());
     confirmPassword.addEventListener('input', () => validatePassword());
 
-    return { isPasswordValid };
+    return { isPasswordValid, showPasswordError };
 })();
 
 const form = (function form() {
@@ -153,12 +153,24 @@ const form = (function form() {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        if (email.isEmailValid() && zipcode.isZipcodeValid()) {
-            output.textContent = 'YIPPEE - High five time!';
-        } else {
-            output.textContent = 'Oops, check your fields again!';
+        if (!email.isEmailValid()) {
             email.showEmailError();
+            output.textContent = 'Oops, check your fields again!';
+        }
+        if (!zipcode.isZipcodeValid()) {
             zipcode.showZipcodeError();
+            output.textContent = 'Oops, check your fields again!';
+        }
+        if (!password.isPasswordValid()) {
+            password.showPasswordError();
+            output.textContent = 'Oops, check your fields again!';
+        }
+        if (
+            email.isEmailValid() &&
+            zipcode.isZipcodeValid() &&
+            password.isPasswordValid()
+        ) {
+            output.textContent = 'YIPPEE - High five time!';
         }
     });
 })();
