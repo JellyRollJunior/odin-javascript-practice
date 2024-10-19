@@ -154,6 +154,10 @@ output {
   text-align: center; 
 }
 
+form :invalid {
+  border: 2px solid #900;
+}
+
 .error {  
   padding: 0;
   font-size: 80%;
