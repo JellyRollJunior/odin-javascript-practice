@@ -39,11 +39,10 @@ const email = (function email() {
 })();
 
 const country = (function country() {
-    
     const getCountryCode = () => {
         const country = document.querySelector('#country');
         return country.value;
-    }
+    };
 
     return { getCountryCode };
 })();
@@ -74,7 +73,6 @@ const zipcode = (function zipcode() {
         ],
     };
 
-
     const isZipcodeValid = () => {
         const countryCode = country.getCountryCode();
         const zipcodeConstraint = new RegExp(constraints[countryCode][0], '');
@@ -89,16 +87,16 @@ const zipcode = (function zipcode() {
         } else {
             showZipcodeError();
         }
-    }
+    };
 
     const showZipcodeError = () => {
         zipcodeError.className = 'error active';
         zipcodeError.textContent = constraints[country.getCountryCode()][1];
-    }
+    };
 
     zipcode.addEventListener('input', () => validateZipcode());
 
-    return { isZipcodeValid, showZipcodeError }
+    return { isZipcodeValid, showZipcodeError };
 })();
 
 const password = (function password() {
@@ -106,13 +104,19 @@ const password = (function password() {
     const confirmPassword = document.querySelector('#confirm-password');
     const passwordError = document.querySelector('#password+.error');
     // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
-    const passwordConstraint = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$', '');
+    const passwordConstraint = new RegExp(
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$',
+        ''
+    );
 
     const isPasswordValid = () => {
         const passwordValue = password.value;
-        const confirmValue = confirmPassword.value 
-        return passwordConstraint.test(passwordValue) && (passwordValue == confirmValue);
-    }
+        const confirmValue = confirmPassword.value;
+        return (
+            passwordConstraint.test(passwordValue) &&
+            passwordValue == confirmValue
+        );
+    };
 
     const validatePassword = () => {
         if (isPasswordValid()) {
@@ -121,18 +125,21 @@ const password = (function password() {
         } else {
             showPasswordError();
         }
-    }
+    };
 
+    // how do i separate the logic from isPasswordValid and showPasswordError.
+    // If i want to change password validation logic, I am forced to change login in showPasswordError as well. Not good
     const showPasswordError = () => {
         const passwordValue = password.value;
-        const confirmValue = confirmPassword.value
+        const confirmValue = confirmPassword.value;
         if (!passwordConstraint.test(passwordValue)) {
-            passwordError.textContent = 'Passwords require at least eight characters, one uppercase letter, one lowercase letter, one number and one special character';
+            passwordError.textContent =
+                'Passwords require at least eight characters, one uppercase letter, one lowercase letter, one number and one special character';
         } else if (passwordValue != confirmValue) {
             passwordError.textContent = 'Passwords must match';
         }
         passwordError.className = 'error active';
-    }
+    };
 
     password.addEventListener('input', () => validatePassword());
     confirmPassword.addEventListener('input', () => validatePassword());
