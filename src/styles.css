@@ -154,7 +154,7 @@ output {
   text-align: center; 
 }
 
-form :invalid {
+form .dirty:invalid {
   border: 2px solid #900;
 }
 

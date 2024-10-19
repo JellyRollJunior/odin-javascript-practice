@@ -121,7 +121,10 @@ const password = (function password() {
     const password = document.querySelector('#password');
     const confirmPassword = document.querySelector('#confirm-password');
     const passwordError = document.querySelector('#password+.error');
-    const passwordErrorController = new ErrorController(passwordError, password);
+    const passwordErrorController = new ErrorController(
+        passwordError,
+        password
+    );
     // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
     const passwordConstraint = new RegExp(
         '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$',
@@ -190,5 +193,16 @@ const form = (function form() {
         ) {
             output.textContent = 'YIPPEE - High five time!';
         }
+    });
+
+    // add "dirty" class to interacted inputs to apply invalid styling
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputs = document.querySelectorAll('input');
+
+        inputs.forEach((input) => {
+            input.addEventListener('input', () => {
+                input.classList.add('dirty');
+            });
+        });
     });
 })();
