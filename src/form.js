@@ -1,8 +1,27 @@
 export { form };
 
+class ErrorController {
+    constructor(errorElement, inputElement) {
+        this.errorElement = errorElement;
+        this.inputElement = inputElement;
+    }
+
+    clearError() {
+        this.errorElement.textContent = '';
+        this.errorElement.className = 'error';
+        this.inputElement.setCustomValidity('');
+    }
+
+    activateError() {
+        this.errorElement.className = 'error active';
+        this.inputElement.setCustomValidity('invalid');
+    }
+}
+
 const email = (function email() {
     const email = document.querySelector('#email');
     const emailError = document.querySelector('#email+.error');
+    const emailErrorController = new ErrorController(emailError, email);
     const emailConstraint = new RegExp(
         '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$',
         ''
@@ -15,8 +34,7 @@ const email = (function email() {
 
     const validateEmail = () => {
         if (isEmailValid()) {
-            emailError.textContent = '';
-            emailError.className = 'error';
+            emailErrorController.clearError();
         } else {
             showEmailError();
         }
@@ -30,7 +48,7 @@ const email = (function email() {
             emailError.textContent =
                 'Please enter an email with at least 5 characters';
         }
-        emailError.className = 'error active';
+        emailErrorController.activateError();
     };
 
     email.addEventListener('input', () => validateEmail());
@@ -50,6 +68,7 @@ const country = (function country() {
 const zipcode = (function zipcode() {
     const zipcode = document.querySelector('#zipcode');
     const zipcodeError = document.querySelector('#zipcode+.error');
+    const zipcodeErrorController = new ErrorController(zipcodeError, zipcode);
     const constraints = {
         tw: [
             '^[\\d]{3}((-)?[\\d]{2,3})?$',
@@ -82,15 +101,14 @@ const zipcode = (function zipcode() {
 
     const validateZipcode = () => {
         if (isZipcodeValid()) {
-            zipcodeError.textContent = '';
-            zipcodeError.className = 'error';
+            zipcodeErrorController.clearError();
         } else {
             showZipcodeError();
         }
     };
 
     const showZipcodeError = () => {
-        zipcodeError.className = 'error active';
+        zipcodeErrorController.activateError();
         zipcodeError.textContent = constraints[country.getCountryCode()][1];
     };
 
@@ -103,6 +121,7 @@ const password = (function password() {
     const password = document.querySelector('#password');
     const confirmPassword = document.querySelector('#confirm-password');
     const passwordError = document.querySelector('#password+.error');
+    const passwordErrorController = new ErrorController(passwordError, password);
     // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
     const passwordConstraint = new RegExp(
         '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$',
@@ -120,8 +139,7 @@ const password = (function password() {
 
     const validatePassword = () => {
         if (isPasswordValid()) {
-            passwordError.textContent = '';
-            passwordError.className = 'error';
+            passwordErrorController.clearError();
         } else {
             showPasswordError();
         }
@@ -138,7 +156,7 @@ const password = (function password() {
         } else if (passwordValue != confirmValue) {
             passwordError.textContent = 'Passwords must match';
         }
-        passwordError.className = 'error active';
+        passwordErrorController.activateError();
     };
 
     password.addEventListener('input', () => validatePassword());
