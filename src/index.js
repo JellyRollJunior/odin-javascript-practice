@@ -1,5 +1,5 @@
 import './styles.css';
-import { form } from './form.js';
+import { initEmail, initCountry, initZipcode, initPassword, initForm } from './form.js';
 
 const toggleVisibility = function (element) {
     if (element.classList.contains('visible')) {
@@ -140,3 +140,12 @@ const toggleVisibility = function (element) {
     updateActiveNavButton(0);
     setInterval(next, 5000);
 })();
+
+// initialize form
+document.addEventListener('DOMContentLoaded', () => {
+    const email = initEmail();
+    const country = initCountry();
+    const zipcode = initZipcode(country);
+    const password = initPassword();
+    initForm(email, zipcode, password);
+});

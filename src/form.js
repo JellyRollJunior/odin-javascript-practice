@@ -1,12 +1,4 @@
-export { initForm };
-
-document.addEventListener('DOMContentLoaded', () => {
-    const email = initEmail();
-    const country = initCountry();
-    const zipcode = initZipcode(country);
-    const password = initPassword();
-    initForm(email, zipcode, password);
-});
+export { initEmail, initCountry, initZipcode, initPassword, initForm };
 
 class ErrorController {
     constructor(errorElement, inputElement) {
