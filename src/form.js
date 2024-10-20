@@ -174,33 +174,25 @@ const initPassword = () => {
     confirmPassword.addEventListener('input', () => validatePassword());
 
     return { isValid, showError };
-}
+};
 
 const initForm = (email, zipcode, password) => {
     const form = document.querySelector('form');
     const output = document.querySelector('output');
+    const validators = [email, zipcode, password];
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        if (!email.isValid()) {
-            email.showError();
-            output.textContent = 'Oops, check your fields again!';
-        }
-        if (!zipcode.isValid()) {
-            zipcode.showError();
-            output.textContent = 'Oops, check your fields again!';
-        }
-        if (!password.isValid()) {
-            password.showError();
-            output.textContent = 'Oops, check your fields again!';
-        }
-        if (
-            email.isValid() &&
-            zipcode.isValid() &&
-            password.isValid()
-        ) {
-            output.textContent = 'YIPPEE - High five time!';
-        }
+        let allValid = true;
+        validators.forEach((validator) => {
+            if (!validator.isValid()) {
+                validator.showError();
+                allValid = false;
+            }
+        });
+        output.textContent = allValid
+            ? 'YIPPEE - High five time!'
+            : 'Oops, check your fields again!';
     });
 
     // add "dirty" class to interacted inputs to apply invalid styling
