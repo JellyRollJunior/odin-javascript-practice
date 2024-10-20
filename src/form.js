@@ -188,13 +188,10 @@ const initForm = (email, zipcode, password) => {
     });
 
     // add "dirty" class to interacted inputs to apply invalid styling
-    document.addEventListener('DOMContentLoaded', function () {
-        const inputs = document.querySelectorAll('input');
-
-        inputs.forEach((input) => {
-            input.addEventListener('input', () => {
-                input.classList.add('dirty');
-            });
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach((input) => {
+        input.addEventListener('input', () => {
+            input.classList.add('dirty');
         });
     });
 };
