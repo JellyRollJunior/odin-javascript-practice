@@ -100,7 +100,7 @@ const initZipcode = (country) => {
         ],
     };
 
-    const isZipcodeValid = () => {
+    const isValid = () => {
         const countryCode = country.getCountryCode();
         const zipcodeConstraint = new RegExp(constraints[countryCode][0], '');
         const zipcodeValue = zipcode.value;
@@ -108,21 +108,21 @@ const initZipcode = (country) => {
     };
 
     const validateZipcode = () => {
-        if (isZipcodeValid()) {
+        if (isValid()) {
             zipcodeErrorController.clearError();
         } else {
-            showZipcodeError();
+            showError();
         }
     };
 
-    const showZipcodeError = () => {
+    const showError = () => {
         zipcodeErrorController.activateError();
         zipcodeError.textContent = constraints[country.getCountryCode()][1];
     };
 
     zipcode.addEventListener('input', () => validateZipcode());
 
-    return { isZipcodeValid, showZipcodeError };
+    return { isValid, showError };
 };
 
 const initPassword = () => {
@@ -139,7 +139,7 @@ const initPassword = () => {
         ''
     );
 
-    const isPasswordValid = () => {
+    const isValid = () => {
         const passwordValue = password.value;
         const confirmValue = confirmPassword.value;
         return (
@@ -149,16 +149,16 @@ const initPassword = () => {
     };
 
     const validatePassword = () => {
-        if (isPasswordValid()) {
+        if (isValid()) {
             passwordErrorController.clearError();
         } else {
-            showPasswordError();
+            showError();
         }
     };
 
     // how do i separate the logic from isPasswordValid and showPasswordError.
     // If i want to change password validation logic, I am forced to change login in showPasswordError as well. Not good
-    const showPasswordError = () => {
+    const showError = () => {
         const passwordValue = password.value;
         const confirmValue = confirmPassword.value;
         if (!passwordConstraint.test(passwordValue)) {
@@ -173,7 +173,7 @@ const initPassword = () => {
     password.addEventListener('input', () => validatePassword());
     confirmPassword.addEventListener('input', () => validatePassword());
 
-    return { isPasswordValid, showPasswordError };
+    return { isValid, showError };
 }
 
 const initForm = (email, zipcode, password) => {
@@ -186,18 +186,18 @@ const initForm = (email, zipcode, password) => {
             email.showError();
             output.textContent = 'Oops, check your fields again!';
         }
-        if (!zipcode.isZipcodeValid()) {
-            zipcode.showZipcodeError();
+        if (!zipcode.isValid()) {
+            zipcode.showError();
             output.textContent = 'Oops, check your fields again!';
         }
-        if (!password.isPasswordValid()) {
-            password.showPasswordError();
+        if (!password.isValid()) {
+            password.showError();
             output.textContent = 'Oops, check your fields again!';
         }
         if (
             email.isValid() &&
-            zipcode.isZipcodeValid() &&
-            password.isPasswordValid()
+            zipcode.isValid() &&
+            password.isValid()
         ) {
             output.textContent = 'YIPPEE - High five time!';
         }
