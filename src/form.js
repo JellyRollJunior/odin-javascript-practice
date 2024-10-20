@@ -1,4 +1,12 @@
-export { form };
+export { initForm };
+
+document.addEventListener('DOMContentLoaded', () => {
+    const email = initEmail();
+    const country = initCountry();
+    const zipcode = initZipcode(country);
+    const password = initPassword();
+    initForm(email, zipcode, password);
+});
 
 class ErrorController {
     constructor(errorElement, inputElement) {
@@ -18,7 +26,7 @@ class ErrorController {
     }
 }
 
-const email = (function email() {
+const initEmail = () => {
     const email = document.querySelector('#email');
     const emailError = document.querySelector('#email+.error');
     const emailErrorController = new ErrorController(emailError, email);
@@ -27,20 +35,20 @@ const email = (function email() {
         ''
     );
 
-    const isEmailValid = () => {
+    const isValid = () => {
         const emailAddress = email.value;
         return emailConstraint.test(emailAddress);
     };
 
     const validateEmail = () => {
-        if (isEmailValid()) {
+        if (isValid()) {
             emailErrorController.clearError();
         } else {
-            showEmailError();
+            showError();
         }
     };
 
-    const showEmailError = () => {
+    const showError = () => {
         if (email.validity.typeMismatch || email.validity.valueMissing) {
             emailError.textContent =
                 'Please enter an email with format mail@example.domain';
@@ -53,19 +61,19 @@ const email = (function email() {
 
     email.addEventListener('input', () => validateEmail());
 
-    return { isEmailValid, showEmailError };
-})();
+    return { isValid, showError };
+};
 
-const country = (function country() {
+const initCountry = () => {
     const getCountryCode = () => {
         const country = document.querySelector('#country');
         return country.value;
     };
 
     return { getCountryCode };
-})();
+};
 
-const zipcode = (function zipcode() {
+const initZipcode = (country) => {
     const zipcode = document.querySelector('#zipcode');
     const zipcodeError = document.querySelector('#zipcode+.error');
     const zipcodeErrorController = new ErrorController(zipcodeError, zipcode);
@@ -115,9 +123,9 @@ const zipcode = (function zipcode() {
     zipcode.addEventListener('input', () => validateZipcode());
 
     return { isZipcodeValid, showZipcodeError };
-})();
+};
 
-const password = (function password() {
+const initPassword = () => {
     const password = document.querySelector('#password');
     const confirmPassword = document.querySelector('#confirm-password');
     const passwordError = document.querySelector('#password+.error');
@@ -166,16 +174,16 @@ const password = (function password() {
     confirmPassword.addEventListener('input', () => validatePassword());
 
     return { isPasswordValid, showPasswordError };
-})();
+}
 
-const form = (function form() {
+const initForm = (email, zipcode, password) => {
     const form = document.querySelector('form');
     const output = document.querySelector('output');
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        if (!email.isEmailValid()) {
-            email.showEmailError();
+        if (!email.isValid()) {
+            email.showError();
             output.textContent = 'Oops, check your fields again!';
         }
         if (!zipcode.isZipcodeValid()) {
@@ -187,7 +195,7 @@ const form = (function form() {
             output.textContent = 'Oops, check your fields again!';
         }
         if (
-            email.isEmailValid() &&
+            email.isValid() &&
             zipcode.isZipcodeValid() &&
             password.isPasswordValid()
         ) {
@@ -205,4 +213,4 @@ const form = (function form() {
             });
         });
     });
-})();
+};
