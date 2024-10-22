@@ -151,14 +151,14 @@ form * {
 
 output {
   grid-column: span 2;
-  text-align: center; 
+  text-align: center;
 }
 
 form .dirty:invalid {
   border: 2px solid #900;
 }
 
-.error {  
+.error {
   padding: 0;
   font-size: 80%;
   color: white;
@@ -172,15 +172,20 @@ form .dirty:invalid {
 
 .gif {
   display: grid;
-  grid-template-rows: 1fr 1fr 250px;
+  grid-auto-rows: 25px 25px 1fr;
+  gap: 12px;
   align-items: center;
   justify-content: center;
 
-  height: 300px;
+  height: 400px;
   width: var(--site-width);
-  margin-top: 8px;
+  margin-top: 20px;
+  padding: 16px 16px;
 }
 
 .gif > img {
   border: 2px solid black;
+  max-width: 400px;
+  max-height: 300px;
+  object-fit: contain;
 }
