@@ -169,3 +169,18 @@ form .dirty:invalid {
 .error.active {
   padding: 0.3em;
 }
+
+.gif {
+  display: grid;
+  grid-template-rows: 1fr 1fr 250px;
+  align-items: center;
+  justify-content: center;
+
+  height: 300px;
+  width: var(--site-width);
+  margin-top: 8px;
+}
+
+.gif > img {
+  border: 2px solid black;
+}
