@@ -1,4 +1,3 @@
-import dame from './images/dame.png';
 export { initGif };
 
 const initGif = () => {
@@ -21,19 +20,27 @@ const initGif = () => {
                 return response.json();
             })
             .then(function (response) {
-                if (!response.ok) {
-                    img.src = dame;
-                } else {
-                    img.src = response.data.images.original.url;
-                }
+                img.src = response.data.images.original.url;
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
 
-    generateButton.addEventListener('click', () => populateGif());
-    populateGif();
+    async function populateGifAsync() {
+        const url = createEndpoint();
+        const response = await fetch(url, { mode: 'cors' });
+        const gifData = await response.json();
+        img.src = gifData.data.images.original.url;
+    }
+
+    generateButton.addEventListener('click', () =>
+        populateGifAsync().catch((error) => console.log(error))
+    );
+    populateGifAsync().catch((error) => console.log(error));
+
+    // generateButton.addEventListener('click', () => populateGif());
+    // populateGif();
 
     return { populateGif };
 };
