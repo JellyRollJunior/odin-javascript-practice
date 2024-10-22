@@ -1,3 +1,4 @@
+import dame from './images/dame.png';
 export { initGif };
 
 const initGif = () => {
@@ -20,7 +21,14 @@ const initGif = () => {
                 return response.json();
             })
             .then(function (response) {
-                img.src = response.data.images.original.url;
+                if (!response.ok) {
+                    img.src = dame;
+                } else {
+                    img.src = response.data.images.original.url;
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
             });
     }
 
