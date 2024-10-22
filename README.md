@@ -9,3 +9,9 @@
   - Practiced modular code with a kind of interface setup: I made my components implement functions with the same name so I could iterate through each component and call a shared function
   - Marking inputs dirty when applying invalid input styling!
   - First time using RegExp in javascript
+- #3: [Lesson link](https://www.theodinproject.com/lessons/node-path-javascript-working-with-apis)
+  - Input a query receive a gif from giphy based on the query!
+  - First time practicing fetch, .then, .catch, API calls! neato
+- #4: [Lesson link](https://www.theodinproject.com/lessons/node-path-javascript-async-and-await)
+  - Convert our gif box into an async function
+  - First time practicing async, and await. wowza
