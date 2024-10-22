@@ -174,7 +174,6 @@ form .dirty:invalid {
   display: grid;
   grid-auto-rows: 25px 25px 1fr;
   gap: 12px;
-  align-items: center;
   justify-content: center;
 
   height: 400px;
@@ -183,9 +182,20 @@ form .dirty:invalid {
   padding: 16px 16px;
 }
 
+.gif > div {
+  margin: auto;
+}
+
+.gif > button {
+  width: 150px;
+  justify-self: center;
+}
+
 .gif > img {
+  justify-self: center;
+  align-self: center;
   border: 2px solid black;
   max-width: 400px;
-  max-height: 300px;
+  max-height: 280px;
   object-fit: contain;
 }
