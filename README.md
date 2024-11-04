@@ -15,3 +15,6 @@
 - #4: [Lesson link](https://www.theodinproject.com/lessons/node-path-javascript-async-and-await)
   - Convert our gif box into an async function
   - First time practicing async, and await. wowza
+- #5: [Lesson link](https://www.theodinproject.com/lessons/javascript-recursion)
+  - Fibonacci recursively
+  - Mergesort recursively
