@@ -26,6 +26,11 @@ class LinkedList {
         }
     }
 
+    prepend(value) {
+        let node = new Node(value, this.head);
+        this.head = node;
+    }
+
     toString() {
         let list = '';
         let current = this.head;
@@ -46,4 +51,5 @@ list.append("parrot");
 list.append("hamster");
 list.append("snake");
 list.append("turtle");
+list.prepend("usagi");
 console.log(list.toString());
