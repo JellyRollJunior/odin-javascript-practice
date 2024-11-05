@@ -31,6 +31,16 @@ class LinkedList {
         this.head = node;
     }
 
+    size() {
+        let total = 0;
+        let current = this.head;
+        while (current !== null) {
+            total = total + 1;
+            current = current.nextNode;
+        }
+        return total;
+    }
+
     toString() {
         let list = '';
         let current = this.head;
@@ -53,3 +63,4 @@ list.append("snake");
 list.append("turtle");
 list.prepend("usagi");
 console.log(list.toString());
+console.log(list.size());
