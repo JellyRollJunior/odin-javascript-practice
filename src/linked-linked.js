@@ -74,6 +74,7 @@ class LinkedList {
             let node = this.tail;
             this.tail = current;
             this.tail.nextNode = null;
+            this.size = this.size - 1;
             return node;
         }
     }
@@ -96,6 +97,27 @@ class LinkedList {
             i = i + 1;
         }
         return null;
+    }
+
+    insertAt(value, index) {
+        if (index <= 0) {
+            let node = new Node(value, this.head);
+            this.head = node;
+        } else if (index >= this.size) {
+            let node = new Node(value, null);
+            this.tail.nextNode = node;
+            this.tail = node;
+        } else {
+            let left = this.head;
+            let right = this.head.nextNode;
+            for (let i = 1; i < index; i++) {
+                left = left.nextNode;
+                right = right.nextNode;
+            }
+            let node = new Node(value, right);
+            left.nextNode = node;
+        }
+        this.size = this.size + 1;
     }
 
     toString() {
@@ -130,3 +152,8 @@ console.log(list.contains('usagi'));
 console.log(list.contains('chiikawa'));
 console.log(list.find('snake'));
 console.log(list.find('chiikawa'));
+console.log(list.insertAt('hachiware', 3));
+console.log(list.insertAt('chiikawa', 2002));
+console.log(list.insertAt('usagi2', -123123));
+console.log(list.toString());
+console.log(list.getSize());
