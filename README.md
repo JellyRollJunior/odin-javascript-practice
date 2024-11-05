@@ -18,3 +18,5 @@
 - #5: [Lesson link](https://www.theodinproject.com/lessons/javascript-recursion)
   - Fibonacci recursively
   - Mergesort recursively
+- #6: [Lesson link](https://www.theodinproject.com/lessons/javascript-linked-lists)
+  - Linked list
