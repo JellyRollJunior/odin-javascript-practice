@@ -4,7 +4,12 @@ class HashMap {
     constructor() {
         // Start with hashmap of capacity: 16 
         this.buckets = [];
-        for (let i = 0; i < 16; i++) {
+        this.expandBuckets(16);
+    }
+
+    expandBuckets(newCapacity) {
+        const currentSize = this.buckets.length;
+        for (let i = currentSize; i < newCapacity; i++) {
             this.buckets.push(new LinkedList());
         }
     }
