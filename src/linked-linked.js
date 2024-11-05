@@ -13,6 +13,7 @@ class LinkedList {
     constructor() {
         this.head = null;
         this.tail = null;
+        this.size = 0;
     }
 
     append(value) {
@@ -24,21 +25,17 @@ class LinkedList {
             this.tail.nextNode = node;
             this.tail = node;
         }
+        this.size = this.size + 1;
     }
 
     prepend(value) {
         let node = new Node(value, this.head);
         this.head = node;
+        this.size = this.size + 1;
     }
 
     size() {
-        let total = 0;
-        let current = this.head;
-        while (current !== null) {
-            total = total + 1;
-            current = current.nextNode;
-        }
-        return total;
+        return this.size;
     }
 
     toString() {
