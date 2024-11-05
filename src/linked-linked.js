@@ -46,6 +46,15 @@ class LinkedList {
         return this.tail;
     }
 
+    at(value) {
+        if (value >= this.size) return null;
+        let current = this.head;
+        for (let i = 0; i < value; i++) {
+            current = current.nextNode;
+        }
+        return current;
+    }
+
     toString() {
         let list = '';
         let current = this.head;
@@ -70,3 +79,5 @@ console.log(list.toString());
 console.log(list.getSize());
 console.log(list.getHead());
 console.log(list.getTail());
+console.log(list.at(0));
+console.log(list.at(6));
