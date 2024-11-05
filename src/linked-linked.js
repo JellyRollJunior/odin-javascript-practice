@@ -1,3 +1,5 @@
+export { LinkedList };
+
 class Node {
     constructor(value = null, nextNode = null) {
         this.value = value;
@@ -165,33 +167,34 @@ class LinkedList {
     }
 }
 
-const list = new LinkedList();
-list.append("dog");
-list.append("cat");
-list.append("parrot");
-list.append("hamster");
-list.append("snake");
-list.append("turtle");
-list.prepend("usagi");
-console.log(list.toString());
-console.log(list.getSize());
-console.log(list.getHead());
-console.log(list.getTail());
-console.log(list.at(0));
-console.log(list.at(6));
-console.log(list.pop());
-console.log(list.toString());
-console.log(list.contains('usagi'));
-console.log(list.contains('chiikawa'));
-console.log(list.find('snake'));
-console.log(list.find('chiikawa'));
-console.log(list.insertAt('hachiware', 3));
-console.log(list.insertAt('chiikawa', 2002));
-console.log(list.insertAt('usagi2', -123123));
-console.log(list.toString());
-console.log(list.getSize());
-list.removeAt(0);
-list.removeAt(6);
-list.removeAt(123123);
-console.log(list.toString());
-console.log(list.getSize());
+/* Test data */
+// const list = new LinkedList();
+// list.append('dog');
+// list.append('cat');
+// list.append('parrot');
+// list.append('hamster');
+// list.append('snake');
+// list.append('turtle');
+// list.prepend('usagi');
+// console.log(list.toString());
+// console.log(list.getSize());
+// console.log(list.getHead());
+// console.log(list.getTail());
+// console.log(list.at(0));
+// console.log(list.at(6));
+// console.log(list.pop());
+// console.log(list.toString());
+// console.log(list.contains('usagi'));
+// console.log(list.contains('chiikawa'));
+// console.log(list.find('snake'));
+// console.log(list.find('chiikawa'));
+// console.log(list.insertAt('hachiware', 3));
+// console.log(list.insertAt('chiikawa', 2002));
+// console.log(list.insertAt('usagi2', -123123));
+// console.log(list.toString());
+// console.log(list.getSize());
+// list.removeAt(0);
+// list.removeAt(6);
+// list.removeAt(123123);
+// console.log(list.toString());
+// console.log(list.getSize());
