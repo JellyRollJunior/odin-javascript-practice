@@ -34,15 +34,22 @@ class LinkedList {
         this.size = this.size + 1;
     }
 
-    size() {
+    getSize() {
         return this.size;
+    }
+
+    getHead() {
+        return this.head;
+    }
+
+    getTail() {
+        return this.tail;
     }
 
     toString() {
         let list = '';
         let current = this.head;
         while (current !== null) {
-            console.log(current.toString());
             list = list + current.toString();
             current = current.nextNode;
         }
@@ -60,4 +67,6 @@ list.append("snake");
 list.append("turtle");
 list.prepend("usagi");
 console.log(list.toString());
-console.log(list.size());
+console.log(list.getSize());
+console.log(list.getHead());
+console.log(list.getTail());
