@@ -87,6 +87,17 @@ class LinkedList {
         return false;
     }
 
+    find(value) {
+        let i = 0;
+        let current = this.head;
+        while (current !== null) {
+            if (current.value == value) return i;
+            current = current.nextNode;
+            i = i + 1;
+        }
+        return null;
+    }
+
     toString() {
         let list = '';
         let current = this.head;
@@ -117,3 +128,5 @@ console.log(list.pop());
 console.log(list.toString());
 console.log(list.contains('usagi'));
 console.log(list.contains('chiikawa'));
+console.log(list.find('snake'));
+console.log(list.find('chiikawa'));
