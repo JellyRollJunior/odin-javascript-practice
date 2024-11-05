@@ -120,6 +120,39 @@ class LinkedList {
         this.size = this.size + 1;
     }
 
+    removeAt(index) {
+        if (this.size == 0) {
+            return;
+        } else if (this.size == 1) {
+            this.pop();
+        } else {
+            // size >= 2
+            if (index <= 0) {
+                this.head = this.head.nextNode;
+            } else if (index >= this.size) {
+                let left = this.head;
+                let right = this.head.nextNode;
+                while (right !== this.tail) {
+                    left = left.nextNode;
+                    right = right.nextNode;
+                }
+                this.tail = left;
+                left.nextNode = null;
+            } else {
+                let left = this.head;
+                let mid = left.nextNode;
+                let right = mid.nextNode;
+                for (let i = 1; i < index; i++) {
+                    left = left.nextNode;
+                    mid = mid.nextNode;
+                    right = right.nextNode;
+                }
+                left.nextNode = right;
+            }
+        }
+        this.size = this.size - 1;
+    }
+
     toString() {
         let list = '';
         let current = this.head;
@@ -155,5 +188,10 @@ console.log(list.find('chiikawa'));
 console.log(list.insertAt('hachiware', 3));
 console.log(list.insertAt('chiikawa', 2002));
 console.log(list.insertAt('usagi2', -123123));
+console.log(list.toString());
+console.log(list.getSize());
+list.removeAt(0);
+list.removeAt(6);
+list.removeAt(123123);
 console.log(list.toString());
 console.log(list.getSize());
