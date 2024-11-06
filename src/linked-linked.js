@@ -1,4 +1,4 @@
-export { LinkedList };
+export { Node, LinkedList };
 
 class Node {
     constructor(value = null, nextNode = null) {
