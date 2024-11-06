@@ -1,4 +1,4 @@
-import { Node, LinkedList } from "./linked-linked.js";
+import { LinkedList } from "./linked-linked.js";
 
 class KeyPair {
     constructor(key, value) {
@@ -10,15 +10,7 @@ class KeyPair {
 class KeyPairLinkedList extends LinkedList {
     appendKeyPair(key, value) {
         let keyPair = new KeyPair(key, value);
-        let node = new Node(keyPair, null);
-        if (this.head === null) {
-            this.head = node;
-            this.tail = node;
-        } else {
-            this.tail.nextNode = node;
-            this.tail = node;
-        }
-        this.size = this.size + 1;
+        super.append(keyPair);
     }
 
     containsKey(key) {
@@ -46,7 +38,7 @@ class HashMap {
     constructor() {
         // Start with hashmap of capacity: 16 
         this.buckets = [];
-        this.expandBuckets(16);
+        this.expandBuckets(4);
     }
 
     expandBuckets(newCapacity) {
@@ -67,8 +59,12 @@ class HashMap {
     }
 
     #insertValue(index, key, value) {
-        // todo: check for repeat key -> delete repeat key value
         const list = this.buckets[index];
+        if (list.containsKey(key)) {
+            // remove duplicate key
+            const index = list.findKey(key);
+            list.removeAt(index);
+        }
         list.appendKeyPair(key, value);
     }
 
@@ -79,7 +75,6 @@ class HashMap {
 }
 
 const map = new HashMap();
-console.log(map.hash('hello'));
 map.set('hello', 'usagi');
+map.set('hello', 'chiikawa');
 console.log(map.buckets);
-console.log(map.buckets[2].toString());

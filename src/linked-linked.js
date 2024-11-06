@@ -127,6 +127,7 @@ class LinkedList {
             return;
         } else if (this.size == 1) {
             this.pop();
+            return;
         } else {
             // size >= 2
             if (index <= 0) {
@@ -169,6 +170,9 @@ class LinkedList {
 
 /* Test data */
 // const list = new LinkedList();
+// list.append('usagi');
+
+// console.log(list.toString());
 // list.append('dog');
 // list.append('cat');
 // list.append('parrot');
