@@ -48,10 +48,10 @@ class LinkedList {
         return this.tail;
     }
 
-    at(value) {
-        if (value >= this.size) return null;
+    at(index) {
+        if (index >= this.size) return null;
         let current = this.head;
-        for (let i = 0; i < value; i++) {
+        for (let i = 0; i < index; i++) {
             current = current.nextNode;
         }
         return current;

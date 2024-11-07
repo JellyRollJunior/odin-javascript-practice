@@ -73,6 +73,10 @@ class HashMap {
         this.#insertValue(hashCode, key, value);
     }
 
+    #getKeyPairValueFromNode(node) {
+        return node.value.value;
+    }
+
     get(key) {
         let value = null;
         const hashCode = this.hash(key);
@@ -80,7 +84,7 @@ class HashMap {
         if (list.containsKey(key)) {
             const index = list.findKey(key);
             const node = list.at(index);
-            value = node.value.value;
+            value = this.#getKeyPairValueFromNode(node);
         }
         return value;
     }
