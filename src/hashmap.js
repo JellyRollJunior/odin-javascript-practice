@@ -1,4 +1,4 @@
-import { LinkedList } from "./linked-linked.js";
+import { LinkedList } from './linked-linked.js';
 
 class KeyPair {
     constructor(key, value) {
@@ -36,7 +36,7 @@ class KeyPairLinkedList extends LinkedList {
 
 class HashMap {
     constructor() {
-        // Start with hashmap of capacity: 16 
+        // Start with hashmap of capacity: 16
         this.buckets = [];
         this.expandBuckets(4);
     }
@@ -98,6 +98,14 @@ class HashMap {
             return true;
         }
         return false;
+    }
+
+    length() {
+        const size = this.buckets.reduce(
+            (size, bucket) => size + bucket.getSize(),
+            0
+        );
+        return size;
     }
 }
 
