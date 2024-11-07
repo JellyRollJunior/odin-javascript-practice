@@ -107,6 +107,12 @@ class HashMap {
         );
         return size;
     }
+
+    clear() {
+        for (let i = 0; i < this.buckets.length; i++) {
+            this.buckets[i] = new LinkedList();
+        }
+    }
 }
 
 const map = new HashMap();
