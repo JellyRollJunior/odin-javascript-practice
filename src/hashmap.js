@@ -88,12 +88,23 @@ class HashMap {
         }
         return value;
     }
+
+    remove(key) {
+        let hashCode = this.hash(key);
+        const list = this.buckets[hashCode];
+        if (list.containsKey(key)) {
+            const index = list.findKey(key);
+            list.removeAt(index);
+            return true;
+        }
+        return false;
+    }
 }
 
 const map = new HashMap();
 map.set('hello', 'usagi');
 map.set('hello', 'chiikawa');
-map.set('byasdfafde', 'hachikawa');
+map.set('bye', 'hachikawa');
 console.log(map.buckets);
 console.log(map.get('hello'));
 console.log(map.get('bye'));

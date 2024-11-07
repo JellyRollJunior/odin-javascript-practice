@@ -132,7 +132,7 @@ class LinkedList {
             // size >= 2
             if (index <= 0) {
                 this.head = this.head.nextNode;
-            } else if (index >= this.size) {
+            } else if (index >= this.size - 1) {
                 let left = this.head;
                 let right = this.head.nextNode;
                 while (right !== this.tail) {
