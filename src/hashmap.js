@@ -72,9 +72,24 @@ class HashMap {
         const hashCode = this.hash(key);
         this.#insertValue(hashCode, key, value);
     }
+
+    get(key) {
+        let value = null;
+        const hashCode = this.hash(key);
+        const list = this.buckets[hashCode];
+        if (list.containsKey(key)) {
+            const index = list.findKey(key);
+            const node = list.at(index);
+            value = node.value.value;
+        }
+        return value;
+    }
 }
 
 const map = new HashMap();
 map.set('hello', 'usagi');
 map.set('hello', 'chiikawa');
+map.set('byasdfafde', 'hachikawa');
 console.log(map.buckets);
+console.log(map.get('hello'));
+console.log(map.get('bye'));
