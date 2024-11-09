@@ -60,21 +60,6 @@ class HashMap {
         return hashCode;
     }
 
-    #setAll(entries) {
-        entries.forEach((entry) => {
-            this.set(entry.key, entry.value);
-        });
-    }
-
-    #insertValue(index, key, value) {
-        const list = this.buckets[index];
-        if (list.containsKey(key)) {
-            this.remove(key);
-        }
-        list.appendKeyPair(key, value);
-        this.size += 1;
-    }
-
     set(key, value) {
         const hashCode = this.hash(key);
         this.#insertValue(hashCode, key, value);
@@ -88,14 +73,11 @@ class HashMap {
         }
     }
 
-    #getKeyPairValueFromNode(node) {
-        return node.value.value;
-    }
-
     get(key) {
         let value = null;
-        const hashCode = this.hash(key);
-        const list = this.buckets[hashCode];
+        const index = this.hash(key);
+        this.#boundsCheck(index)
+        const list = this.buckets[index];
         if (list.containsKey(key)) {
             const index = list.findKey(key);
             const node = list.at(index);
@@ -105,8 +87,9 @@ class HashMap {
     }
 
     remove(key) {
-        let hashCode = this.hash(key);
-        const list = this.buckets[hashCode];
+        const index = this.hash(key);
+        this.#boundsCheck(index)
+        const list = this.buckets[index];
         if (list.containsKey(key)) {
             const index = list.findKey(key);
             list.removeAt(index);
@@ -149,6 +132,32 @@ class HashMap {
             }
         }
         return keyPairArray;
+    }
+
+    #boundsCheck(index) {
+        if (index < 0 || index >= this.buckets.length) {
+            throw new Error("Trying to access index out of bound");
+        }
+    }
+
+    #insertValue(index, key, value) {
+        this.#boundsCheck(index)
+        const list = this.buckets[index];
+        if (list.containsKey(key)) {
+            this.remove(key);
+        }
+        list.appendKeyPair(key, value);
+        this.size += 1;
+    }
+
+    #setAll(entries) {
+        entries.forEach((entry) => {
+            this.set(entry.key, entry.value);
+        });
+    }
+
+    #getKeyPairValueFromNode(node) {
+        return node.value.value;
     }
 }
 
