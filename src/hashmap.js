@@ -113,12 +113,27 @@ class HashMap {
             this.buckets[i] = new LinkedList();
         }
     }
+
+    entries() {
+        let keyPairArray = [];
+        for (const bucket of this.buckets) {
+            let current;
+            for (let i = 0; i < bucket.getSize(); i++) {
+                current = bucket.at(i);
+                keyPairArray.push(current.value);
+            }
+        }
+        return keyPairArray;
+    }
 }
 
 const map = new HashMap();
 map.set('hello', 'usagi');
 map.set('hello', 'chiikawa');
 map.set('bye', 'hachikawa');
+map.set('byeeafasdf', 'zoop');
+map.set('byeasdfasdfa', 'zippt');
+map.set('bye28938928u3', 'YIKERS');
 console.log(map.buckets);
 console.log(map.get('hello'));
 console.log(map.get('bye'));
