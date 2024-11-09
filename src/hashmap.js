@@ -75,9 +75,7 @@ class HashMap {
 
     get(key) {
         let value = null;
-        const index = this.hash(key);
-        this.#boundsCheck(index)
-        const list = this.buckets[index];
+        const list = this.#getBucket(key);
         if (list.containsKey(key)) {
             const index = list.findKey(key);
             const node = list.at(index);
@@ -87,9 +85,7 @@ class HashMap {
     }
 
     remove(key) {
-        const index = this.hash(key);
-        this.#boundsCheck(index)
-        const list = this.buckets[index];
+        const list = this.#getBucket(key);
         if (list.containsKey(key)) {
             const index = list.findKey(key);
             list.removeAt(index);
@@ -158,6 +154,12 @@ class HashMap {
 
     #getKeyPairValueFromNode(node) {
         return node.value.value;
+    }
+
+    #getBucket(key) {
+        const index = this.hash(key);
+        this.#boundsCheck(index)
+        return this.buckets[index];
     }
 }
 
