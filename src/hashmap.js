@@ -114,6 +114,18 @@ class HashMap {
         }
     }
 
+    keys() {
+        return this.entries().map((keyPair) => {
+            return keyPair.key;
+        })
+    }
+
+    values() {
+        return this.entries().map((keyPair) => {
+            return keyPair.value;
+        })
+    }
+
     entries() {
         let keyPairArray = [];
         for (const bucket of this.buckets) {
