@@ -38,8 +38,9 @@ class HashMap {
     constructor() {
         // Start with hashmap of capacity: 16
         this.buckets = [];
-        this.expandBuckets(4);
+        this.expandBuckets(16);
         this.size = 0;
+        this.loadFactor = 0.75;
     }
 
     expandBuckets(newCapacity) {
@@ -59,6 +60,12 @@ class HashMap {
         return hashCode;
     }
 
+    #setAll(entries) {
+        entries.forEach((entry) => {
+            this.set(entry.key, entry.value);
+        });
+    }
+
     #insertValue(index, key, value) {
         const list = this.buckets[index];
         if (list.containsKey(key)) {
@@ -71,6 +78,14 @@ class HashMap {
     set(key, value) {
         const hashCode = this.hash(key);
         this.#insertValue(hashCode, key, value);
+        // Double buckets if entries exceed load factor
+        const expandPoint = this.buckets.length * this.loadFactor;
+        if (this.size > expandPoint) {
+            const entries = this.entries();
+            this.clear();
+            this.expandBuckets(this.buckets.length * 2);
+            this.#setAll(entries);
+        }
     }
 
     #getKeyPairValueFromNode(node) {
@@ -107,8 +122,9 @@ class HashMap {
 
     clear() {
         for (let i = 0; i < this.buckets.length; i++) {
-            this.buckets[i] = new LinkedList();
+            this.buckets[i] = new KeyPairLinkedList();
         }
+        this.size = 0;
     }
 
     keys() {
@@ -136,13 +152,18 @@ class HashMap {
     }
 }
 
-const map = new HashMap();
-map.set('hello', 'usagi');
-map.set('hello', 'chiikawa');
-map.set('bye', 'hachikawa');
-map.set('byeeafasdf', 'zoop');
-map.set('byeasdfasdfa', 'zippt');
-map.set('bye28938928u3', 'YIKERS');
-console.log(map.buckets);
-console.log(map.get('hello'));
-console.log(map.get('bye'));
+const test = new HashMap();
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('lion', 'golden')
+
+console.log('test');
