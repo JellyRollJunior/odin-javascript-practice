@@ -39,6 +39,7 @@ class HashMap {
         // Start with hashmap of capacity: 16
         this.buckets = [];
         this.expandBuckets(4);
+        this.size = 0;
     }
 
     expandBuckets(newCapacity) {
@@ -61,11 +62,10 @@ class HashMap {
     #insertValue(index, key, value) {
         const list = this.buckets[index];
         if (list.containsKey(key)) {
-            // remove duplicate key
-            const index = list.findKey(key);
-            list.removeAt(index);
+            this.remove(key);
         }
         list.appendKeyPair(key, value);
+        this.size += 1;
     }
 
     set(key, value) {
@@ -95,17 +95,14 @@ class HashMap {
         if (list.containsKey(key)) {
             const index = list.findKey(key);
             list.removeAt(index);
+            this.size -= 1;
             return true;
         }
         return false;
     }
 
     length() {
-        const size = this.buckets.reduce(
-            (size, bucket) => size + bucket.getSize(),
-            0
-        );
-        return size;
+        return this.size;
     }
 
     clear() {
