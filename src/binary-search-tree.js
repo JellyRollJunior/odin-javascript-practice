@@ -3,24 +3,43 @@ function node(data, left = null, right = null) {
 }
 
 function tree(array) {
-
     const buildTree = (array) => {
         array.sort();
         // remove duplicates
         const values = [...new Set(array)];
         // construct tree
-        return treeBuilding(0, values.length - 1, values);
+        return buildTreeRecursive(0, values.length - 1, values);
     }
 
-    const treeBuilding = (start, end, values) => {
+    const buildTreeRecursive = (start, end, values) => {
         if (start > end) return null;
         let mid = Math.floor((start + end) / 2);
         const current = node(
             values[mid],
-            treeBuilding(start, mid - 1, values),
-            treeBuilding(mid + 1, end, values)
+            buildTreeRecursive(start, mid - 1, values),
+            buildTreeRecursive(mid + 1, end, values)
         );
         return current;
+    }
+
+    const insert = (value) => {
+        insertRecursive(value, root);
+    }
+
+    const insertRecursive = (value, current) =>  {
+        if (current == null) return;
+        if (value < current.data) {
+            if (current.left == null) {
+                current.left = node(value);
+            }
+            insertRecursive(value, current.left);
+        } else if (value > current.data) {
+            if (current.right == null) {
+                current.right = node(value);
+            }
+            insertRecursive(value, current.right);
+        }
+        return;
     }
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -38,8 +57,13 @@ function tree(array) {
 
     let root = buildTree(array);
 
-    return {root, prettyPrint}
+    return {root, insert, prettyPrint}
 }
 
 const test = tree([5, 4, 3]);
+test.insert(1);
+test.insert(6);
+test.insert(5);
+test.insert(9);
+test.insert(8);
 test.prettyPrint(test.root);
