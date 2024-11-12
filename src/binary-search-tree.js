@@ -121,12 +121,12 @@ function tree(array) {
         return height;
     }
 
-    const depth = (value) => {
-        if (value == root.data) return 0;
+    const depth = (node) => {
+        if (node == root) return 0;
         let depth = 0;
         let current = root;
-        while (current != null && current.data != value) {
-            if (value < current.data) {
+        while (current != null && current.data != node.data) {
+            if (node.data < current.data) {
                 current = current.left;
             } else {
                 current = current.right;
@@ -173,10 +173,6 @@ function tree(array) {
     };
 }
 
-function call(node) {
-    console.log(node.data);
-}
-
 const test = tree([5, 4, 3]);
 test.insert(1);
 test.insert(6);
@@ -184,6 +180,11 @@ test.insert(5);
 test.insert(9);
 test.insert(8);
 test.prettyPrint(test.root);
+
+// function call(node) {
+//     console.log(node.data);
+// }
+
 // test.levelOrder(call);
 // test.inOrder(call);
 // test.preOrder(call);
