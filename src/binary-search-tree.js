@@ -42,6 +42,18 @@ function tree(array) {
         return;
     }
 
+    const find = (value) => {
+        let current = root;
+        while (current != null && current.data != value) {
+            if (value < current.data) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        return current;
+    }
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
             return;
@@ -57,7 +69,7 @@ function tree(array) {
 
     let root = buildTree(array);
 
-    return {root, insert, prettyPrint}
+    return {root, insert, find, prettyPrint}
 }
 
 const test = tree([5, 4, 3]);
