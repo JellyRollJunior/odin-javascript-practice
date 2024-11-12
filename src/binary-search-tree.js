@@ -93,7 +93,7 @@ function tree(array) {
         callback(node);
         if (node.left != null) preOrderRecursive(callback, node.left);
         if (node.right != null) preOrderRecursive(callback, node.right);
-    }
+    };
 
     const postOrder = (callback) => {
         if (typeof callback !== 'function') {
@@ -107,6 +107,18 @@ function tree(array) {
         if (node.left != null) postOrderRecursive(callback, node.left);
         if (node.right != null) postOrderRecursive(callback, node.right);
         callback(node);
+    };
+
+    const height = (node) => {
+        return heightRecurse(node, node);
+    };
+
+    const heightRecurse = (node, current) => {
+        if (current == null || (current.left == null && current.right == null)) {
+            return 0;
+        }
+        const height = Math.max(heightRecurse(node, current.left) + 1, heightRecurse(node, current.right) + 1);
+        return height;
     }
 
     const depth = (value) => {
@@ -147,7 +159,18 @@ function tree(array) {
 
     let root = buildTree(array);
 
-    return { root, insert, find, levelOrder, inOrder, preOrder, postOrder, depth, prettyPrint };
+    return {
+        root,
+        insert,
+        find,
+        levelOrder,
+        inOrder,
+        preOrder,
+        postOrder,
+        height,
+        depth,
+        prettyPrint,
+    };
 }
 
 function call(node) {
@@ -165,3 +188,4 @@ test.prettyPrint(test.root);
 // test.inOrder(call);
 // test.preOrder(call);
 // test.postOrder(call);
+test.height(test.find(4));
