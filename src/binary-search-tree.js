@@ -136,6 +136,16 @@ function tree(array) {
         return current == null ? null : depth;
     };
 
+    const isBalanced = () => {
+        let balanced = true;
+        levelOrder((node) => {
+            if (Math.abs(height(node.left) - height(node.right)) > 1) {
+                balanced = false;
+            }
+        });
+        return balanced;
+    }
+
     const prettyPrint = (node, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
@@ -169,11 +179,13 @@ function tree(array) {
         postOrder,
         height,
         depth,
+        isBalanced,
         prettyPrint,
     };
 }
 
 const test = tree([5, 4, 3]);
+console.log(test.isBalanced());
 test.insert(1);
 test.insert(6);
 test.insert(5);
