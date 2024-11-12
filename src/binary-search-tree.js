@@ -55,8 +55,9 @@ function tree(array) {
     };
 
     const levelOrder = (callback) => {
-        if (typeof callback !== 'function')
+        if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
+        }
         const queue = [root];
         while (queue.length > 0) {
             let current = queue.shift();
@@ -67,8 +68,9 @@ function tree(array) {
     };
 
     const inOrder = (callback) => {
-        if (typeof callback !== 'function')
+        if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
+        }
         inOrderRecursive(callback, root);
     };
 
@@ -78,6 +80,34 @@ function tree(array) {
         callback(node);
         if (node.right != null) inOrderRecursive(callback, node.right);
     };
+
+    const preOrder = (callback) => {
+        if (typeof callback !== 'function') {
+            throw new Error('Parameter is not a callback function!');
+        }
+        preOrderRecursive(callback, root);
+    };
+
+    const preOrderRecursive = (callback, node) => {
+        if (node == null) return;
+        callback(node);
+        if (node.left != null) preOrderRecursive(callback, node.left);
+        if (node.right != null) preOrderRecursive(callback, node.right);
+    }
+
+    const postOrder = (callback) => {
+        if (typeof callback !== 'function') {
+            throw new Error('Parameter is not a callback function!');
+        }
+        postOrderRecursive(callback, root);
+    };
+
+    const postOrderRecursive = (callback, node) => {
+        if (node == null) return;
+        if (node.left != null) postOrderRecursive(callback, node.left);
+        if (node.right != null) postOrderRecursive(callback, node.right);
+        callback(node);
+    }
 
     const depth = (value) => {
         if (value == root.data) return 0;
@@ -117,7 +147,7 @@ function tree(array) {
 
     let root = buildTree(array);
 
-    return { root, insert, find, levelOrder, inOrder, depth, prettyPrint };
+    return { root, insert, find, levelOrder, inOrder, preOrder, postOrder, depth, prettyPrint };
 }
 
 function call(node) {
@@ -133,3 +163,5 @@ test.insert(8);
 test.prettyPrint(test.root);
 // test.levelOrder(call);
 // test.inOrder(call);
+// test.preOrder(call);
+// test.postOrder(call);
