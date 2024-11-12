@@ -54,6 +54,21 @@ function tree(array) {
         return current;
     }
 
+    const depth = (value) => {
+        if (value == root.data) return 0;
+        let depth = 0;
+        let current = root;
+        while (current != null && current.data != value) {
+            if (value < current.data) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+            depth += 1;
+        }
+        return current == null ? null : depth;
+    }
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
             return;
@@ -69,7 +84,7 @@ function tree(array) {
 
     let root = buildTree(array);
 
-    return {root, insert, find, prettyPrint}
+    return {root, insert, find, depth, prettyPrint}
 }
 
 const test = tree([5, 4, 3]);
