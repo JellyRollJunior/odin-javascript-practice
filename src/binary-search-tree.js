@@ -54,6 +54,17 @@ function tree(array) {
         return current;
     }
 
+    const levelOrder = (callback) => {
+        if (typeof(callback) !== 'function') throw new Error('Parameter is not a callback function!');
+        const queue = [root];
+        while (queue.length > 0) {
+            let current = queue.shift();
+            if (current.left != null) queue.push(current.left);
+            if (current.right != null) queue.push(current.right);
+            callback(current);
+        }
+    }
+
     const depth = (value) => {
         if (value == root.data) return 0;
         let depth = 0;
@@ -84,7 +95,7 @@ function tree(array) {
 
     let root = buildTree(array);
 
-    return {root, insert, find, depth, prettyPrint}
+    return {root, insert, find, levelOrder, depth, prettyPrint}
 }
 
 const test = tree([5, 4, 3]);
@@ -94,3 +105,8 @@ test.insert(5);
 test.insert(9);
 test.insert(8);
 test.prettyPrint(test.root);
+
+function call(node) {
+    console.log(node.data);
+}
+test.levelOrder(call);
