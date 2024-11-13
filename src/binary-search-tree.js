@@ -55,6 +55,7 @@ function tree(array) {
             root = null;
             return;
         }
+
         const parent = findParent(target);
         if (target.left == null && target.right == null) {
             // case 1: target is a leaf
@@ -254,22 +255,3 @@ function tree(array) {
         prettyPrint,
     };
 }
-
-// const test = tree([5, 4, 3]);
-// test.insert(1);
-// test.insert(6);
-// test.insert(5);
-// test.insert(9);
-// test.insert(8);
-// test.insert(10);
-// test.prettyPrint(test.getRoot());
-// test.deleteItem(4);
-// test.prettyPrint(test.getRoot());
-
-const map = tree([]);
-map.insert(0);
-map.prettyPrint(map.getRoot());
-map.deleteItem(0);
-map.prettyPrint(map.getRoot());
-
-console.log('test');
