@@ -42,7 +42,31 @@ function tree(array) {
         return;
     };
 
-    const find = function(value) {
+    const deleteItem = (value) => {
+        let target = find(value);
+        if (target == null) return null;
+        const parent = findParent(target);
+        if (target.left == null && target.right == null) {
+            // case 1: target is a leaf
+            parent.left == target ? parent.left = null : parent.right = null;
+        } else if (target.left != null && target.right != null) {
+            // case 3: target has two children
+            const next = findNext(target);
+            // remove next biggest value from tree and replace our target with the next biggest value
+            deleteItem(next.data);
+            target.data = next.data;
+        } else {
+            // case 2: target has one child
+            const targetChild = target.left != null ? target.left : target.right;
+            if (parent.left == target) {
+                parent.left = targetChild;
+            } else {
+                parent.right = targetChild;
+            }
+        } 
+    };
+
+    const find = function (value) {
         let current = getRoot();
         while (current != null && current.data != value) {
             if (value < current.data) {
@@ -54,11 +78,28 @@ function tree(array) {
         return current;
     };
 
+    const findParent = function (child) {
+        let parent = null;
+        levelOrder((node) => {
+            if (node.left == child || node.right == child) parent = node;
+        });
+        return parent;
+    };
+
+    const findNext = function (node) {
+        if (node == null) return null;
+        let next = node.right;
+        while (next.left) {
+            next = next.left;
+        }
+        return next;
+    }
+
     const levelOrder = (callback) => {
         if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
         }
-        const queue = [ getRoot() ];
+        const queue = [getRoot()];
         while (queue.length > 0) {
             let current = queue.shift();
             if (current.left != null) queue.push(current.left);
@@ -67,7 +108,7 @@ function tree(array) {
         }
     };
 
-    const inOrder = function(callback) {
+    const inOrder = function (callback) {
         if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
         }
@@ -81,7 +122,7 @@ function tree(array) {
         if (node.right != null) inOrderRecursive(callback, node.right);
     };
 
-    const preOrder = function(callback) {
+    const preOrder = function (callback) {
         if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
         }
@@ -95,7 +136,7 @@ function tree(array) {
         if (node.right != null) preOrderRecursive(callback, node.right);
     };
 
-    const postOrder = function(callback) {
+    const postOrder = function (callback) {
         if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
         }
@@ -127,7 +168,7 @@ function tree(array) {
         return height;
     };
 
-    const depth = function(node) {
+    const depth = function (node) {
         if (node == getRoot()) return 0;
         let depth = 0;
         let current = getRoot();
@@ -142,9 +183,9 @@ function tree(array) {
         return current == null ? null : depth;
     };
 
-    const isBalanced = function() {
+    const isBalanced = function () {
         let balanced = true;
-        levelOrder(function(node) {
+        levelOrder(function (node) {
             if (Math.abs(height(node.left) - height(node.right)) > 1) {
                 balanced = false;
             }
@@ -187,6 +228,7 @@ function tree(array) {
     return {
         getRoot,
         insert,
+        deleteItem,
         find,
         levelOrder,
         inOrder,
@@ -206,23 +248,7 @@ test.insert(6);
 test.insert(5);
 test.insert(9);
 test.insert(8);
-
-
-console.log('old tree:');
+test.insert(10);
 test.prettyPrint(test.getRoot());
-
-
-console.log('new tree');
-test.rebalance();
+test.deleteItem(4);
 test.prettyPrint(test.getRoot());
-
-
-console.log('new root: ')
-console.log(test.getRoot());
-
-
-console.log('level order: ');
-function call(node) {
-    console.log(node.data);
-}
-test.levelOrder(call);
