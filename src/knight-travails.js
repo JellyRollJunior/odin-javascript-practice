@@ -14,8 +14,8 @@ const knightMoves = (start, destination) => {
     ];
     const queue = [[start]];
     while (queue.length >= 1) {
-        const moves = queue.shift();
-        const lastMove = moves[moves.length - 1];
+        const currentMoveset = queue.shift();
+        const lastMove = currentMoveset[currentMoveset.length - 1];
         // push valid moves onto the queue
         for (const validMove of validMoves) {
             const newMoveX = lastMove[0] + validMove[0];
@@ -28,7 +28,7 @@ const knightMoves = (start, destination) => {
                 newMoveY >= 0 &&
                 newMoveY <= 7
             ) {
-                const newMoveset = [...moves, newMove];
+                const newMoveset = [...currentMoveset, newMove];
                 queue.push(newMoveset);
                 if (newMoveX == destination[0] && newMoveY == destination[1]) {
                     return newMoveset;
