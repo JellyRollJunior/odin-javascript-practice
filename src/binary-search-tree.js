@@ -22,8 +22,8 @@ function tree(array) {
         return current;
     };
 
-    const insert = function(value) {
-        insertRecursive(value, this.root);
+    const insert = function (value) {
+        insertRecursive(value, getRoot());
     };
 
     const insertRecursive = (value, current) => {
@@ -42,8 +42,8 @@ function tree(array) {
         return;
     };
 
-    const find = (value) => {
-        let current = root;
+    const find = function(value) {
+        let current = getRoot();
         while (current != null && current.data != value) {
             if (value < current.data) {
                 current = current.left;
@@ -58,7 +58,7 @@ function tree(array) {
         if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
         }
-        const queue = [root];
+        const queue = [ getRoot() ];
         while (queue.length > 0) {
             let current = queue.shift();
             if (current.left != null) queue.push(current.left);
@@ -67,11 +67,11 @@ function tree(array) {
         }
     };
 
-    const inOrder = (callback) => {
+    const inOrder = function(callback) {
         if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
         }
-        inOrderRecursive(callback, root);
+        inOrderRecursive(callback, getRoot());
     };
 
     const inOrderRecursive = (callback, node) => {
@@ -81,11 +81,11 @@ function tree(array) {
         if (node.right != null) inOrderRecursive(callback, node.right);
     };
 
-    const preOrder = (callback) => {
+    const preOrder = function(callback) {
         if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
         }
-        preOrderRecursive(callback, root);
+        preOrderRecursive(callback, getRoot());
     };
 
     const preOrderRecursive = (callback, node) => {
@@ -95,11 +95,11 @@ function tree(array) {
         if (node.right != null) preOrderRecursive(callback, node.right);
     };
 
-    const postOrder = (callback) => {
+    const postOrder = function(callback) {
         if (typeof callback !== 'function') {
             throw new Error('Parameter is not a callback function!');
         }
-        postOrderRecursive(callback, root);
+        postOrderRecursive(callback, getRoot());
     };
 
     const postOrderRecursive = (callback, node) => {
@@ -114,17 +114,23 @@ function tree(array) {
     };
 
     const heightRecurse = (node, current) => {
-        if (current == null || (current.left == null && current.right == null)) {
+        if (
+            current == null ||
+            (current.left == null && current.right == null)
+        ) {
             return 0;
         }
-        const height = Math.max(heightRecurse(node, current.left) + 1, heightRecurse(node, current.right) + 1);
+        const height = Math.max(
+            heightRecurse(node, current.left) + 1,
+            heightRecurse(node, current.right) + 1
+        );
         return height;
-    }
+    };
 
-    const depth = (node) => {
-        if (node == root) return 0;
+    const depth = function(node) {
+        if (node == getRoot()) return 0;
         let depth = 0;
-        let current = root;
+        let current = getRoot();
         while (current != null && current.data != node.data) {
             if (node.data < current.data) {
                 current = current.left;
@@ -136,24 +142,23 @@ function tree(array) {
         return current == null ? null : depth;
     };
 
-    const isBalanced = () => {
+    const isBalanced = function() {
         let balanced = true;
-        levelOrder((node) => {
+        levelOrder(function(node) {
             if (Math.abs(height(node.left) - height(node.right)) > 1) {
                 balanced = false;
             }
         });
         return balanced;
-    }
+    };
 
-    const rebalance = function() {
+    const rebalance = function () {
         let data = [];
         levelOrder((node) => {
             data.push(node.data);
-        })
-        this.root = buildTree(data);
-        prettyPrint(root);
-    }
+        });
+        root = buildTree(data);
+    };
 
     const prettyPrint = (node, prefix = '', isLeft = true) => {
         if (node === null) {
@@ -177,9 +182,10 @@ function tree(array) {
     };
 
     let root = buildTree(array);
+    const getRoot = () => root;
 
     return {
-        root,
+        getRoot,
         insert,
         find,
         levelOrder,
@@ -195,21 +201,28 @@ function tree(array) {
 }
 
 const test = tree([5, 4, 3]);
-console.log(test.isBalanced());
 test.insert(1);
 test.insert(6);
 test.insert(5);
 test.insert(9);
 test.insert(8);
+
+
+console.log('old tree:');
+test.prettyPrint(test.getRoot());
+
+
+console.log('new tree');
 test.rebalance();
-test.prettyPrint(test.root);
+test.prettyPrint(test.getRoot());
 
-// function call(node) {
-//     console.log(node.data);
-// }
 
-// test.levelOrder(call);
-// test.inOrder(call);
-// test.preOrder(call);
-// test.postOrder(call);
-test.height(test.find(4));
+console.log('new root: ')
+console.log(test.getRoot());
+
+
+console.log('level order: ');
+function call(node) {
+    console.log(node.data);
+}
+test.levelOrder(call);
