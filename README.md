@@ -24,4 +24,4 @@
   - Binary search tree
   - Revisiting factory functions!
   - After giving classes a shot, I think I prefer using factory functions. They easier to use imo and are more flexible because I can use composition if I want
-  - Using this with factory function closure variables
+  - I would like to brush up on how to get/set closure variables. This gave me a big headache
