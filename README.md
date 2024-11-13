@@ -20,3 +20,8 @@
   - Mergesort recursively
 - #6: [Lesson link](https://www.theodinproject.com/lessons/javascript-linked-lists)
   - Linked list
+- #7: [Lesson link](https://www.theodinproject.com/lessons/javascript-binary-search-trees)
+  - Binary search tree
+  - Revisiting factory functions!
+  - After giving classes a shot, I think I prefer using factory functions. They easier to use imo and are more flexible because I can use composition if I want
+  - Using this with factory function closure variables
