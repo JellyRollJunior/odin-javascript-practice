@@ -1,7 +1,21 @@
-// BFS to find shortest path
-// DFS will infinite loop
-// Chess board 8 x 8
+const isMoveValid = (move) => {
+    const x = move[0];
+    const y = move[1];
+    if (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
+        return true;
+    }
+    return false;
+};
+
 const knightMoves = (start, destination) => {
+    // verify start and destination are valid
+    for (const move of [start, destination]) {
+        if (!isMoveValid(move)) {
+            throw new Error(
+                'Start and destination must fit on an 8 x 8 chess board!'
+            );
+        }
+    }
     const validMoves = [
         [1, 2],
         [2, 1],
@@ -22,12 +36,7 @@ const knightMoves = (start, destination) => {
             const newMoveY = lastMove[1] + validMove[1];
             const newMove = [newMoveX, newMoveY];
             // verify new move is in 8 x 8 grid
-            if (
-                newMoveX >= 0 &&
-                newMoveX <= 7 &&
-                newMoveY >= 0 &&
-                newMoveY <= 7
-            ) {
+            if (isMoveValid(newMove)) {
                 const newMoveset = [...currentMoveset, newMove];
                 queue.push(newMoveset);
                 if (newMoveX == destination[0] && newMoveY == destination[1]) {
