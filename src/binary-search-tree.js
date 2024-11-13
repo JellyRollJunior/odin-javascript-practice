@@ -23,7 +23,11 @@ function tree(array) {
     };
 
     const insert = function (value) {
-        insertRecursive(value, getRoot());
+        if (root == null) {
+            root = node(value);
+        } else {
+            insertRecursive(value, getRoot());
+        }
     };
 
     const insertRecursive = (value, current) => {
@@ -48,7 +52,9 @@ function tree(array) {
         const parent = findParent(target);
         if (target.left == null && target.right == null) {
             // case 1: target is a leaf
-            parent.left == target ? parent.left = null : parent.right = null;
+            parent.left == target
+                ? (parent.left = null)
+                : (parent.right = null);
         } else if (target.left != null && target.right != null) {
             // case 3: target has two children
             const next = findNext(target);
@@ -57,13 +63,14 @@ function tree(array) {
             target.data = next.data;
         } else {
             // case 2: target has one child
-            const targetChild = target.left != null ? target.left : target.right;
+            const targetChild =
+                target.left != null ? target.left : target.right;
             if (parent.left == target) {
                 parent.left = targetChild;
             } else {
                 parent.right = targetChild;
             }
-        } 
+        }
     };
 
     const find = function (value) {
@@ -93,7 +100,7 @@ function tree(array) {
             next = next.left;
         }
         return next;
-    }
+    };
 
     const levelOrder = (callback) => {
         if (typeof callback !== 'function') {
@@ -252,3 +259,9 @@ test.insert(10);
 test.prettyPrint(test.getRoot());
 test.deleteItem(4);
 test.prettyPrint(test.getRoot());
+
+const map = tree([]);
+map.insert(0);
+map.prettyPrint(map.getRoot());
+
+console.log(test);
