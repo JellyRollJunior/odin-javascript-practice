@@ -22,8 +22,8 @@ function tree(array) {
         return current;
     };
 
-    const insert = (value) => {
-        insertRecursive(value, root);
+    const insert = function(value) {
+        insertRecursive(value, this.root);
     };
 
     const insertRecursive = (value, current) => {
@@ -146,6 +146,15 @@ function tree(array) {
         return balanced;
     }
 
+    const rebalance = function() {
+        let data = [];
+        levelOrder((node) => {
+            data.push(node.data);
+        })
+        this.root = buildTree(data);
+        prettyPrint(root);
+    }
+
     const prettyPrint = (node, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
@@ -180,6 +189,7 @@ function tree(array) {
         height,
         depth,
         isBalanced,
+        rebalance,
         prettyPrint,
     };
 }
@@ -191,6 +201,7 @@ test.insert(6);
 test.insert(5);
 test.insert(9);
 test.insert(8);
+test.rebalance();
 test.prettyPrint(test.root);
 
 // function call(node) {
