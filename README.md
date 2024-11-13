@@ -25,3 +25,5 @@
   - Revisiting factory functions!
   - After giving classes a shot, I think I prefer using factory functions. They easier to use imo and are more flexible because I can use composition if I want
   - I would like to brush up on how to get/set closure variables. This gave me a big headache
+- #8: [Lesson link](https://www.theodinproject.com/lessons/javascript-knights-travails)
+  - Knight travails: return shortest number of moves from position A to B for a knight on a chess board
