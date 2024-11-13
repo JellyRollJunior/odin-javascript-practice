@@ -48,7 +48,13 @@ function tree(array) {
 
     const deleteItem = (value) => {
         let target = find(value);
-        if (target == null) return null;
+        if (target == null) {
+            return;
+        } else if (target == root && root.left == null && root.right == null) {
+            // if target is last node in BST, delete root
+            root = null;
+            return;
+        }
         const parent = findParent(target);
         if (target.left == null && target.right == null) {
             // case 1: target is a leaf
@@ -249,19 +255,21 @@ function tree(array) {
     };
 }
 
-const test = tree([5, 4, 3]);
-test.insert(1);
-test.insert(6);
-test.insert(5);
-test.insert(9);
-test.insert(8);
-test.insert(10);
-test.prettyPrint(test.getRoot());
-test.deleteItem(4);
-test.prettyPrint(test.getRoot());
+// const test = tree([5, 4, 3]);
+// test.insert(1);
+// test.insert(6);
+// test.insert(5);
+// test.insert(9);
+// test.insert(8);
+// test.insert(10);
+// test.prettyPrint(test.getRoot());
+// test.deleteItem(4);
+// test.prettyPrint(test.getRoot());
 
 const map = tree([]);
 map.insert(0);
 map.prettyPrint(map.getRoot());
+map.deleteItem(0);
+map.prettyPrint(map.getRoot());
 
-console.log(test);
+console.log('test');
